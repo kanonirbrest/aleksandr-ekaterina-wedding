@@ -491,7 +491,6 @@
   }
 
   function wireAssets() {
-    tryFirst(document.querySelector('[data-asset="plan-group22"]'), ["Group 22"]);
     tryFirst(document.querySelector('[data-asset="plan8-1"]'), ["8"]);
     tryFirst(document.querySelector('[data-asset="plan8-2"]'), ["8"]);
     tryFirst(document.querySelector('[data-asset="plan8-3"]'), ["8"]);

@@ -673,23 +673,6 @@ body {
   overflow: visible;
 }
 
-.plan9-group22 {
-  position: absolute;
-  z-index: 0;
-  left: calc(50% - 255px / 2 - 7.5px);
-  top: 139px;
-  width: 255px;
-  height: 422px;
-  pointer-events: none;
-  background-repeat: no-repeat;
-  background-position: center top;
-  background-size: contain;
-}
-
-.plan9-group22:not(.has-image) {
-  visibility: hidden;
-}
-
 .plan9-line-wrap {
   position: absolute;
   z-index: 2;
