@@ -291,36 +291,54 @@
     var n = dressStripLogicalCount();
     if (!slides.length || !n || slides.length < 3 * n) return;
     var i = ((index % n) + n) % n;
-    var el = slides[n + i];
+    var cur = viewport.scrollLeft + viewport.clientWidth / 2;
+    var bestEl = null;
+    var bestD = Infinity;
+    for (var j = i; j < slides.length; j += n) {
+      var el = slides[j];
+      var mid = el.offsetLeft + el.offsetWidth / 2;
+      var d = Math.abs(mid - cur);
+      if (d < bestD) {
+        bestD = d;
+        bestEl = el;
+      }
+    }
+    if (!bestEl) return;
     viewport.scrollTo({
-      left: dressCenterScrollLeft(viewport, el),
+      left: dressCenterScrollLeft(viewport, bestEl),
       behavior: smooth === false ? "auto" : "smooth",
     });
   }
 
-  function dressNormalizeLoopScroll(viewport, strip) {
+  /** Бесконечность после остановки скролла: клоны + упор в левый/правый край (широкий вьюпорт). */
+  function dressLoopScrollIfAtClone(viewport, strip) {
     var slides = strip.querySelectorAll(".dress-slide");
     var n = dressStripLogicalCount();
     if (!slides.length || !n || slides.length < 3 * n) return;
     var blockW = slides[n].offsetLeft - slides[0].offsetLeft;
     if (blockW <= 0) return;
     var sl = viewport.scrollLeft;
+    var maxSl = Math.max(0, viewport.scrollWidth - viewport.clientWidth);
+    var edge = Math.max(2, Math.round(viewport.clientWidth * 0.02));
     var viewMid = sl + viewport.clientWidth / 2;
     var realStart = slides[n].offsetLeft;
     var thirdStart = slides[2 * n].offsetLeft;
-    if (viewMid < realStart) {
-      viewport.scrollLeft = sl + blockW;
-    } else if (viewMid >= thirdStart) {
-      viewport.scrollLeft = sl - blockW;
+    var stuckLeft = sl <= edge && viewMid >= realStart;
+    var stuckRight = sl >= maxSl - edge && viewMid < thirdStart;
+    if (viewMid < realStart || stuckLeft) {
+      var next = sl + blockW;
+      viewport.scrollLeft = next > maxSl ? maxSl : next;
+    } else if (viewMid >= thirdStart || stuckRight) {
+      var prev = sl - blockW;
+      viewport.scrollLeft = prev < 0 ? 0 : prev;
     }
   }
 
-  function dressInitLoopScroll(viewport, strip) {
+  function dressInitMiddleBlock(viewport, strip) {
     var slides = strip.querySelectorAll(".dress-slide");
     var n = dressStripLogicalCount();
     if (!slides.length || !n || slides.length < 3 * n) return;
-    var el = slides[n];
-    viewport.scrollLeft = dressCenterScrollLeft(viewport, el);
+    viewport.scrollLeft = dressCenterScrollLeft(viewport, slides[n]);
   }
 
   function wireDressSlider() {
@@ -352,22 +370,21 @@
       });
     }
 
-    function scheduleDressLoopNormalize() {
-      if (viewport._dressNormTimer) clearTimeout(viewport._dressNormTimer);
-      viewport._dressNormTimer = setTimeout(function () {
-        viewport._dressNormTimer = null;
-        dressNormalizeLoopScroll(viewport, strip);
-      }, 100);
+    function runDressLoop() {
+      dressLoopScrollIfAtClone(viewport, strip);
     }
 
-    viewport.addEventListener("scroll", scheduleDressLoopNormalize, {
-      passive: true,
-    });
-    viewport.addEventListener("scrollend", function () {
-      if (viewport._dressNormTimer) clearTimeout(viewport._dressNormTimer);
-      viewport._dressNormTimer = null;
-      dressNormalizeLoopScroll(viewport, strip);
-    });
+    var dressLoopDebounce = null;
+    function scheduleDressLoop() {
+      if (dressLoopDebounce) clearTimeout(dressLoopDebounce);
+      dressLoopDebounce = setTimeout(function () {
+        dressLoopDebounce = null;
+        runDressLoop();
+      }, 280);
+    }
+
+    viewport.addEventListener("scrollend", runDressLoop);
+    viewport.addEventListener("scroll", scheduleDressLoop, { passive: true });
 
     var dressResizeTimer = null;
     window.addEventListener("resize", function () {
@@ -381,7 +398,7 @@
 
     requestAnimationFrame(function () {
       requestAnimationFrame(function () {
-        dressInitLoopScroll(viewport, strip);
+        dressInitMiddleBlock(viewport, strip);
       });
     });
 
