@@ -1,6 +1,6 @@
-/* Макет «приглос» 360px — токены из экспорта Figma */
 :root {
-  --page-w: 360px;
+  --page-w: 450px;
+  --hero-h: 798px;
   --bg: #fdfcf8;
   --bg-plan: #ffffff;
   --ink: #000000;
@@ -25,7 +25,6 @@
   box-sizing: border-box;
 }
 
-/* Forum на всей странице: у нативных контролов сброс шрифта по умолчанию */
 button,
 input,
 textarea,
@@ -51,7 +50,6 @@ body {
   line-height: var(--lh-tight);
   letter-spacing: -0.02em;
   color: var(--ink);
-  /* На всю ширину вьюпорта, без серых полос по краям */
   background: var(--bg);
 }
 
@@ -67,7 +65,6 @@ body {
   white-space: nowrap;
 }
 
-/* —— Hero: тучи / луна / монограмма из PNG; даты — HTML. —— */
 .hero--intro {
   position: relative;
   width: 100%;
@@ -76,13 +73,14 @@ body {
   padding: 0;
   background: #fdfcf8;
   overflow: hidden;
+  min-height: var(--hero-h);
 }
 
 .hero-stack {
   position: relative;
   width: 100%;
-  max-width: min(360px, 100%);
-  min-height: 798px;
+  max-width: min(var(--page-w), 100%);
+  min-height: var(--hero-h);
   margin: 0 auto;
   background: #fdfcf8;
 }
@@ -90,24 +88,22 @@ body {
 .hero-cloud--bottom {
   position: absolute;
   z-index: 1;
-  /* Mask group + Layer 6 (Frame 6): 200×88 @ 150, 350 */
-  left: 150px;
+  left: calc(150 * 100% / 360);
   top: 350px;
-  width: 200px;
+  width: calc(200 * 100% / 360);
   height: auto;
-  max-width: 200px;
+  max-width: 56%;
   pointer-events: none;
 }
 
-/* Луна + монограмма: буквы строго по центру диска (геометрический центр «планеты») */
 .hero-moon-stack {
   position: absolute;
   z-index: 2;
   left: 50%;
   top: 95px;
   transform: translateX(-50%);
-  width: 299px;
-  max-width: calc(100% - 24px);
+  width: min(299px, calc(100% - 24px));
+  max-width: 83%;
   line-height: 0;
   pointer-events: none;
 }
@@ -134,9 +130,9 @@ body {
 .hero-cloud--top {
   position: absolute;
   z-index: 4;
-  left: 30px;
+  left: calc(30 * 100% / 360);
   top: 54px;
-  width: 140px;
+  width: calc(140 * 100% / 360);
   max-width: 42%;
   height: auto;
   pointer-events: none;
@@ -163,7 +159,6 @@ body {
   color: var(--ink);
 }
 
-/* Group 8 — слово Wedding (экспорт PNG), Frame 6: ~153×44 @ center+1.56px, top 493 */
 .hero-wedding-img {
   position: absolute;
   left: 50%;
@@ -176,17 +171,20 @@ body {
   pointer-events: none;
 }
 
-/* Тексты как в Frame 6: дата 181×33 @ 94,544; город 79×33 @ 145,581 */
 .hero-date-line {
-  left: 94px;
+  left: 50%;
   top: 544px;
-  width: 181px;
+  transform: translateX(-50%);
+  width: min(181px, calc(100% - 48px));
+  max-width: 90%;
 }
 
 .hero-city-line {
-  left: 145px;
+  left: 50%;
   top: 581px;
-  width: 79px;
+  transform: translateX(-50%);
+  width: min(120px, calc(100% - 48px));
+  max-width: 90%;
 }
 
 .hero-scroll {
@@ -232,13 +230,11 @@ body {
   }
 }
 
-/* —— Поэма + календарь —— */
 .block {
   padding: 0 var(--pad-x) 48px;
   background: var(--bg);
 }
 
-/* —— Frame 7: поэма + календарь (360×750) —— */
 .frame7 {
   padding: 0;
   background: #fdfcf8;
@@ -282,20 +278,20 @@ body {
 }
 
 .frame7-line--tag {
-  width: 206px;
+  width: min(206px, calc(100% - 48px));
   max-width: calc(100% - 32px);
   margin-left: auto;
   margin-right: auto;
   margin-top: 1px;
   padding-top: 0;
   text-align: right;
-  transform: translateX(68px);
+  transform: translateX(clamp(12px, 12vw, 68px));
 }
 
 .frame7-text {
   margin: 0;
-  margin-left: 102px;
-  max-width: 232px;
+  margin-left: clamp(88px, 28.5%, 150px);
+  max-width: min(232px, calc(100% - clamp(88px, 28.5%, 150px) - 20px));
   font-family: var(--font);
   font-size: var(--body);
   font-weight: 400;
@@ -328,8 +324,8 @@ body {
 }
 
 .frame7-cal {
-  width: 271px;
-  max-width: calc(100% - 32px);
+  width: min(271px, 100%);
+  max-width: calc(100% - 24px);
   min-height: 252px;
   margin: 26px auto 0;
   position: relative;
@@ -344,6 +340,12 @@ body {
 
   .frame7-line--tag {
     transform: translateX(24px);
+  }
+}
+
+@media (min-width: 400px) and (max-width: 450px) {
+  .frame7-text {
+    max-width: min(280px, calc(100% - clamp(88px, 28.5%, 150px) - 24px));
   }
 }
 
@@ -435,7 +437,6 @@ body {
   visibility: hidden;
 }
 
-/* День свадьбы (из data-target): розовый круг под числом, цифра поверх */
 .frame7-cal .cal-cell--wedding {
   position: relative;
   color: var(--ink-soft);
@@ -462,7 +463,6 @@ body {
   text-shadow: 0 0 2px #fdfcf8, 0 0 4px #fdfcf8;
 }
 
-/* —— Локация (Frame 8, 360×600) —— */
 .block--location {
   padding: 0 0 48px;
   background: var(--bg);
@@ -472,7 +472,7 @@ body {
   position: relative;
   width: 100%;
   max-width: var(--page-w);
-  /* 600px кадр + нижний ряд ~537…620 по вертикали */
+  
   min-height: 624px;
   margin: 0 auto;
   padding: 0;
@@ -486,7 +486,6 @@ body {
   object-fit: contain;
 }
 
-/* «нарисуй пак…» — верх слева */
 .frame8-deco--tl {
   left: -49px;
   top: 1px;
@@ -496,9 +495,9 @@ body {
   z-index: 2;
 }
 
-/* тот же ассет — верх справа; зеркало по X, чтобы смотрел в сторону карты как в макете */
 .frame8-deco--tr {
-  left: 306px;
+  left: auto;
+  right: -8px;
   top: 81px;
   width: 103px;
   height: auto;
@@ -548,7 +547,7 @@ body {
 .frame8-map-wrap {
   position: absolute;
   left: 50%;
-  /* Frame 8: карта 321×200, по вертикали как в макете (центр −18px при высоте блока 600) */
+  
   top: 182px;
   transform: translateX(-50%);
   width: 321px;
@@ -558,7 +557,7 @@ body {
   overflow: hidden;
   background: #e8e4df;
   z-index: 1;
-  /* «Фильтр по цвету»: приглушённая карта под кремовый фон (виджет рисуется одним слоем) */
+  
   filter: grayscale(0.88) sepia(0.12) saturate(0.55) contrast(0.92) brightness(1.06);
 }
 
@@ -592,7 +591,7 @@ body {
   text-align: center;
   color: var(--ink);
   text-decoration: underline solid currentColor;
-  /* небольшой зазор между буквами и линией (визуально «отступ от текста») */
+  
   text-underline-offset: 0.2em;
   text-decoration-thickness: 1px;
   text-decoration-skip-ink: auto;
@@ -602,77 +601,47 @@ body {
   opacity: 0.75;
 }
 
-/*
- * Нижний ряд Frame 8: в Figma — absolute left для каждого слоя (33…8), все top 537.42px,
- * размер 65.75×82.3px, rotate -2.19deg. Шаг по left ~58px при ширине 65.75px ⇒ слои слегка перекрываются (~7.7px), это не space-between.
- */
 .frame8-strip {
   position: absolute;
-  left: 50%;
+  left: 0;
+  right: 0;
   top: 537px;
-  transform: translateX(-50%);
-  width: 360px;
+  width: 100%;
   max-width: 100%;
-  height: 83px;
+  min-height: 84px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: stretch;
+  gap: 0;
+  padding: 0;
+  box-sizing: border-box;
   pointer-events: none;
+  overflow-x: hidden;
 }
 
 .frame8-strip-slot {
-  position: absolute;
-  top: 0.42px;
-  width: 65.75px;
-  height: 82.3px;
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
   display: flex;
   align-items: flex-end;
   justify-content: center;
 }
 
-.frame8-strip-slot:nth-child(1) {
-  left: 1px;
-  z-index: 1;
-}
-
-.frame8-strip-slot:nth-child(2) {
-  left: 59.06px;
-  z-index: 2;
-}
-
-.frame8-strip-slot:nth-child(3) {
-  left: 117.12px;
-  z-index: 3;
-}
-
-.frame8-strip-slot:nth-child(4) {
-  left: 175.18px;
-  z-index: 4;
-}
-
-.frame8-strip-slot:nth-child(5) {
-  left: 233.24px;
-  z-index: 5;
-}
-
-.frame8-strip-slot:nth-child(6) {
-  left: 291.3px;
-  z-index: 6;
-}
-
 .frame8-strip-slot img {
   display: block;
-  width: 65.75px;
-  height: 82.3px;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  max-height: 88px;
   object-fit: contain;
+  object-position: center bottom;
   transform: rotate(-2.19deg);
+  transform-origin: 50% 100%;
 }
 
 @media (max-width: 359px) {
-  .frame8-deco--tr {
-    left: auto;
-    right: -8px;
-    transform: scaleX(-1);
-    transform-origin: 50% 50%;
-  }
-
   .frame8-deco--tl {
     left: -36px;
   }
@@ -693,7 +662,6 @@ body {
   opacity: 0.75;
 }
 
-/* —— План дня (Frame 9 в Figma: 360×960, #fff; реф. Frame 11.png в assets) —— */
 .block.block--plan.frame9 {
   padding: 0 0 48px;
   background: #ffffff;
@@ -710,7 +678,6 @@ body {
   overflow: visible;
 }
 
-/* Group 22 — большой декор за списком */
 .plan9-group22 {
   position: absolute;
   z-index: 0;
@@ -728,7 +695,6 @@ body {
   visibility: hidden;
 }
 
-/* Line 7 — розовая линия под заголовком (экспорт Line 7.png) */
 .plan9-line-wrap {
   position: absolute;
   z-index: 2;
@@ -768,7 +734,8 @@ body {
 .plan9-spark {
   position: absolute;
   z-index: 2;
-  left: 271.7px;
+  left: auto;
+  right: clamp(4px, 2.5vw, 20px);
   top: 234.5px;
   width: 61.7px;
   height: auto;
@@ -776,7 +743,6 @@ body {
   pointer-events: none;
 }
 
-/* Три «пушистых» маркера (в макете 8.png); подставляются через tryFirst в main.js */
 .plan9-fuzz {
   position: absolute;
   z-index: 1;
@@ -801,7 +767,8 @@ body {
 }
 
 .plan9-fuzz--3 {
-  left: 269px;
+  left: auto;
+  right: clamp(8px, 3vw, 24px);
   top: 769px;
   width: 47px;
   height: 89px;
@@ -817,7 +784,6 @@ body {
   padding: 0;
 }
 
-/* Крупная иллюстрация внизу блока — Layer 3 5.png (по макету Frame 9) */
 .plan9-bottom-moon {
   position: absolute;
   z-index: 0;
@@ -905,38 +871,25 @@ body {
 }
 
 .plan9-row--1 .plan9-copy {
-  max-width: 199px;
+  max-width: min(199px, calc(100% - 120px));
 }
 
 .plan9-row--2 .plan9-copy {
-  max-width: 145px;
+  max-width: min(145px, calc(100% - 120px));
 }
 
 .plan9-row--3 .plan9-copy {
-  max-width: 224px;
+  max-width: min(224px, calc(100% - 120px));
 }
 
 .plan9-row--4 .plan9-copy {
-  max-width: 193px;
+  max-width: min(193px, calc(100% - 120px));
 }
 
 .plan9-row--5 .plan9-copy {
-  max-width: 89px;
+  max-width: min(89px, calc(100% - 120px));
 }
 
-@media (max-width: 359px) {
-  .plan9-spark {
-    left: auto;
-    right: 8px;
-  }
-
-  .plan9-fuzz--3 {
-    left: auto;
-    right: 12px;
-  }
-}
-
-/* —— Подарки (Frame 11: 360×535, #FDFCF8) —— */
 .block.block--gifts.frame11 {
   padding: 0 0 48px;
   background: #fdfcf8;
@@ -974,7 +927,11 @@ body {
 
 .frame11-art {
   position: absolute;
-  inset: 0;
+  left: 50%;
+  top: 0;
+  width: min(360px, 100%);
+  height: 100%;
+  transform: translateX(-50%);
   pointer-events: none;
 }
 
@@ -985,17 +942,16 @@ body {
   object-position: center;
 }
 
-/* Group 27 — Figma 207.23×181.21 @ 99, 86 */
 .frame11-img--g27 {
   left: 99px;
   top: 86px;
   width: 207.23px;
-  height: 181.21px;
+  height: auto;
+  aspect-ratio: 207.23 / 181.21;
 }
 
-/* Слой «…2 8» / cross.png — Figma 44.3×53.61, left calc(50% − 22.15px − 127.85px), top 148 */
 .frame11-img--cross {
-  left: max(2px, calc(50% - 44.3px / 2 - 127.85px));
+  left: max(2px, calc(50% - 22.15px - 127.85px));
   top: 148px;
   width: 44.3px;
   height: 53.61px;
@@ -1003,15 +959,14 @@ body {
   z-index: 2;
 }
 
-/* Group 28 — Figma 177.65×121.77 @ 128, 280 */
 .frame11-img--g28 {
   left: 128px;
   top: 280px;
   width: 177.65px;
-  height: 121.77px;
+  height: auto;
+  aspect-ratio: 177.65 / 121.77;
 }
 
-/* Layer 41 1 — Figma 43×39 @ 43, 309 */
 .frame11-img--l41 {
   left: 43px;
   top: 309px;
@@ -1038,7 +993,6 @@ body {
   z-index: 2;
 }
 
-/* —— Dress code (Frame 10: 360×745, #FDFCF8) —— */
 .block.block--dress.frame10 {
   padding: 0 0 48px;
   background: #fdfcf8;
@@ -1105,7 +1059,6 @@ body {
   color: var(--ink);
 }
 
-/* Слайдер на всю ширину кадра (как в макете; без inset 37px) */
 .frame10-slider {
   position: absolute;
   left: 0;
@@ -1134,7 +1087,6 @@ body {
   display: none;
 }
 
-/* Стрелка: 50px над ней от низа слайдера (269 + 353.18 + 50) */
 .frame10-swiper-arrow {
   position: absolute;
   left: calc(50% - 218px / 2 - 4px);
@@ -1188,7 +1140,6 @@ body {
   object-position: top center;
 }
 
-/* Ширины/высоты слайдов — порядок как в DRESS_SLIDES (Frame 16) */
 .frame10-slider-viewport .dress-slide:nth-child(1) {
   width: 109.96px;
   height: 346.27px;
@@ -1229,7 +1180,6 @@ body {
   height: 353.18px;
 }
 
-/* —— RSVP (Frame 12: 360×707, #FDFCF8) —— */
 .block.block--rsvp.frame12 {
   padding: 0 0 48px;
   background: #fdfcf8;
@@ -1261,7 +1211,8 @@ body {
 }
 
 .frame12-deco--l4 {
-  left: 288px;
+  left: auto;
+  right: 12px;
   top: 191px;
   width: 68.14px;
   height: 59.09px;
@@ -1329,8 +1280,9 @@ body {
 
 .frame12-field {
   position: absolute;
-  left: 39px;
-  width: 282px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(282px, calc(100% - 32px));
 }
 
 .frame12-field--first {
@@ -1344,17 +1296,17 @@ body {
 }
 
 .frame12-field--persons {
-  top: 428px;
+  top: 427px;
   height: 51px;
 }
 
 .frame12-field--children {
-  top: 496px;
+  top: 502px;
   height: 51px;
 }
 
 .frame12-field--allergy {
-  top: 564px;
+  top: 577px;
   min-height: 90px;
   height: 90px;
   padding-bottom: 0;
@@ -1406,7 +1358,7 @@ body {
 .frame12-label--multiline {
   white-space: normal;
   line-height: 1.25;
-  max-width: 282px;
+  max-width: 100%;
   padding-right: 4px;
 }
 
@@ -1422,14 +1374,17 @@ body {
 
 .frame12-radios {
   position: absolute;
-  left: 65px;
-  top: 362px;
+  left: 50%;
+  top: 375px;
+  transform: translateX(-50%);
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 40px;
-  width: 230px;
-  max-width: calc(100% - 80px);
+  justify-content: flex-start;
+  box-sizing: border-box;
+  gap: clamp(24px, 7vw, 40px);
+  width: min(282px, calc(100% - 32px));
+  min-height: 28px;
   z-index: 1;
 }
 
@@ -1497,14 +1452,6 @@ body {
   opacity: 0.88;
 }
 
-@media (max-width: 359px) {
-  .frame12-deco--l4 {
-    left: auto;
-    right: 4px;
-  }
-}
-
-/* —— Таймер (Frame 13: 360×741, #FDFCF8) —— */
 .block.block--countdown.frame13 {
   padding: 0 0 48px;
   background: #fdfcf8;
@@ -1525,7 +1472,6 @@ body {
   object-fit: contain;
 }
 
-/* Планета (Layer 0) — сзади; 96 и UI поверх */
 .frame13-deco--layer0 {
   left: calc(50% - 287px / 2 + 0.5px);
   top: 348px;
@@ -1664,20 +1610,12 @@ body {
 
 .frame13-names {
   position: absolute;
-  left: 43.33px;
+  left: 50%;
   top: 578px;
-  width: 263.67px;
-  height: 76.61px;
+  transform: translateX(-50%);
+  width: min(263.67px, calc(100% - 32px));
+  height: auto;
   object-fit: contain;
-  object-position: left top;
+  object-position: center top;
   z-index: 2;
-}
-
-@media (max-width: 359px) {
-  .frame13-names {
-    left: calc(43.33 / 360 * 100%);
-    width: min(263.67px, calc(100% - 48px));
-    height: auto;
-    aspect-ratio: 263.67 / 76.61;
-  }
 }

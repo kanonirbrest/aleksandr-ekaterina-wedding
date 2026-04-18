@@ -48,7 +48,6 @@
     };
   }
 
-  /** Одна дата свадьбы: сначала <main data-wedding="YYYY-MM-DD">, иначе дата из #countdown data-target */
   function weddingFromCountdown() {
     var page = document.querySelector(".page");
     var fromMain = page && page.getAttribute("data-wedding");
@@ -241,9 +240,8 @@
   function dressScrollToIndex(viewport, strip, index, smooth) {
     var slides = strip.querySelectorAll(".dress-slide");
     if (!slides.length) return;
-    var i = index;
-    if (i < 0) i = 0;
-    if (i >= slides.length) i = slides.length - 1;
+    var n = slides.length;
+    var i = ((index % n) + n) % n;
     viewport.scrollTo({
       left: slides[i].offsetLeft,
       behavior: smooth === false ? "auto" : "smooth",
@@ -294,9 +292,9 @@
         if (!slides.length) return;
         var idx = dressSliderNearestIndex(viewport, strip);
         if (dx < 0) {
-          dressScrollToIndex(viewport, strip, Math.min(idx + 1, slides.length - 1), true);
+          dressScrollToIndex(viewport, strip, idx + 1, true);
         } else {
-          dressScrollToIndex(viewport, strip, Math.max(idx - 1, 0), true);
+          dressScrollToIndex(viewport, strip, idx - 1, true);
         }
       },
       { passive: true }
@@ -319,9 +317,9 @@
         var idx = dressSliderNearestIndex(viewport, strip);
         var delta = e.deltaX !== 0 ? e.deltaX : e.deltaY;
         if (delta > 0) {
-          dressScrollToIndex(viewport, strip, Math.min(idx + 1, slides.length - 1), true);
+          dressScrollToIndex(viewport, strip, idx + 1, true);
         } else if (delta < 0) {
-          dressScrollToIndex(viewport, strip, Math.max(idx - 1, 0), true);
+          dressScrollToIndex(viewport, strip, idx - 1, true);
         }
       },
       { passive: false }
@@ -333,10 +331,10 @@
       var idx = dressSliderNearestIndex(viewport, strip);
       if (e.key === "ArrowLeft") {
         e.preventDefault();
-        dressScrollToIndex(viewport, strip, Math.max(0, idx - 1), true);
+        dressScrollToIndex(viewport, strip, idx - 1, true);
       } else if (e.key === "ArrowRight") {
         e.preventDefault();
-        dressScrollToIndex(viewport, strip, Math.min(slides.length - 1, idx + 1), true);
+        dressScrollToIndex(viewport, strip, idx + 1, true);
       }
     });
 
