@@ -1025,6 +1025,7 @@ body {
   touch-action: pan-x;
   overscroll-behavior-x: contain;
   scroll-snap-type: x mandatory;
+  scroll-padding-inline: clamp(20px, 6vw, 40px);
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -1071,7 +1072,9 @@ body {
   flex-direction: row;
   align-items: flex-start;
   gap: 20px;
-  padding: 0;
+  box-sizing: border-box;
+  padding-left: clamp(20px, 6vw, 40px);
+  padding-right: clamp(20px, 6vw, 40px);
   margin: 0;
   width: max-content;
   height: 100%;
