@@ -38,6 +38,38 @@
     "Декабрь",
   ];
 
+  /**
+   * RSVP → Google Form «свадьба А и Е»
+   * Редактирование: https://docs.google.com/forms/d/e/1FAIpQLSfvboVxZtfpUT-K4bWhSiD-ue9c3btvxSSTHM058dzUQ300EQ/viewform?usp=publish-editor
+   * Переопределение: window.RSVP_GOOGLE_FORMS до загрузки этого файла.
+   */
+  var RSVP_GOOGLE_FORMS = {
+    action:
+      "https://docs.google.com/forms/d/e/1FAIpQLSfvboVxZtfpUT-K4bWhSiD-ue9c3btvxSSTHM058dzUQ300EQ/formResponse",
+    entries: {
+      first_name: "entry.1784060440",
+      last_name: "entry.126729175",
+      attend: "entry.1243509634",
+      attendYes: "Я приду",
+      attendNo: "Я не приду",
+      persons: "entry.449907991",
+      children: "entry.2146726756",
+      diet_notes: "entry.34150322",
+    },
+  };
+
+  if (typeof window !== "undefined" && window.RSVP_GOOGLE_FORMS) {
+    var ov = window.RSVP_GOOGLE_FORMS;
+    if (ov && ov.action) RSVP_GOOGLE_FORMS.action = ov.action;
+    if (ov && ov.entries) {
+      for (var rk in ov.entries) {
+        if (Object.prototype.hasOwnProperty.call(ov.entries, rk)) {
+          RSVP_GOOGLE_FORMS.entries[rk] = ov.entries[rk];
+        }
+      }
+    }
+  }
+
   function parseWeddingYmd(raw) {
     var m = (raw || "").match(/^(\d{4})-(\d{2})-(\d{2})/);
     if (!m) return null;
@@ -349,6 +381,115 @@
     }
   }
 
+  function wireRsvpForm() {
+    var form = document.getElementById("rsvp-form");
+    if (!form) return;
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var c = RSVP_GOOGLE_FORMS;
+      var en = c && c.entries;
+      if (
+        !c ||
+        !c.action ||
+        !en ||
+        !en.first_name ||
+        !en.last_name ||
+        !en.attend
+      ) {
+        window.alert(
+          "Отправка в Google Форму не настроена: в js/main.js заполните RSVP_GOOGLE_FORMS.action и entries (поля entry.* из предзаполненной ссылки)."
+        );
+        return;
+      }
+
+      var fd = new FormData(form);
+      var first = (fd.get("first_name") || "").toString().trim();
+      var last = (fd.get("last_name") || "").toString().trim();
+      var attendVal = (fd.get("attend") || "").toString();
+      if (!first || !last || !attendVal) {
+        window.alert(
+          "Пожалуйста, укажите имя, фамилию и выберите «Я приду» или «Я не приду»."
+        );
+        return;
+      }
+
+      var params = new URLSearchParams();
+      params.append(en.first_name, first);
+      params.append(en.last_name, last);
+      var attendLabel =
+        attendVal === "no"
+          ? en.attendNo || "Я не приду"
+          : en.attendYes || "Я приду";
+      params.append(en.attend, attendLabel);
+
+      if (en.persons) {
+        var pr = (fd.get("persons") || "").toString().trim();
+        if (pr !== "") params.append(en.persons, pr);
+      }
+      if (en.children) {
+        var ch = (fd.get("children") || "").toString().trim();
+        if (ch !== "") params.append(en.children, ch);
+      }
+      if (en.diet_notes) {
+        var di = (fd.get("diet_notes") || "").toString().trim();
+        if (di !== "") params.append(en.diet_notes, di);
+      }
+
+      var btn = form.querySelector(".frame12-submit");
+      var statusEl = document.getElementById("rsvp-form-status");
+      var btnDefault = btn ? btn.textContent : "Отправить";
+      if (btn) {
+        btn.disabled = true;
+        btn.textContent = "Отправка…";
+      }
+      if (statusEl) {
+        statusEl.hidden = false;
+        statusEl.textContent = "Отправка…";
+      }
+
+      fetch(c.action, {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+        },
+        body: params.toString(),
+      })
+        .then(function () {
+          if (btn) {
+            btn.textContent = "Отправлено";
+            btn.disabled = true;
+          }
+          if (statusEl) statusEl.textContent = "Спасибо! Ответ записан.";
+          form.reset();
+          window.setTimeout(function () {
+            if (btn) {
+              btn.textContent = btnDefault;
+              btn.disabled = false;
+            }
+            if (statusEl) {
+              statusEl.textContent = "";
+              statusEl.hidden = true;
+            }
+          }, 6000);
+        })
+        .catch(function () {
+          if (btn) {
+            btn.textContent = btnDefault;
+            btn.disabled = false;
+          }
+          if (statusEl) {
+            statusEl.textContent = "";
+            statusEl.hidden = true;
+          }
+          window.alert(
+            "Не удалось отправить. Проверьте подключение к интернету и настройки формы."
+          );
+        });
+    });
+  }
+
   function wireAssets() {
     tryFirst(document.querySelector('[data-asset="plan-group22"]'), ["Group 22"]);
     tryFirst(document.querySelector('[data-asset="plan8-1"]'), ["8"]);
@@ -365,4 +506,5 @@
   tickCountdown();
   setInterval(tickCountdown, 1000);
   wireAssets();
+  wireRsvpForm();
 })();

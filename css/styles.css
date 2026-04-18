@@ -1447,6 +1447,32 @@ body {
   opacity: 0.88;
 }
 
+.frame12-submit:disabled {
+  opacity: 0.85;
+  cursor: default;
+}
+
+.frame12-form-status {
+  position: absolute;
+  left: 50%;
+  bottom: 12px;
+  transform: translateX(-50%);
+  width: min(280px, calc(100% - 32px));
+  margin: 0;
+  padding: 0;
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: var(--lh-tight);
+  letter-spacing: -0.02em;
+  text-align: center;
+  color: var(--ink);
+}
+
+.frame12-form-status[hidden] {
+  display: none !important;
+}
+
 .block.block--countdown.frame13 {
   padding: 0 0 48px;
   background: #fdfcf8;

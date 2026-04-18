@@ -278,7 +278,7 @@
         <p class="frame12-note">
           Пожалуйста, подтвердите свое присутствие до&nbsp;01.07.2026
         </p>
-        <form class="frame12-form" action="#" method="post">
+        <form class="frame12-form" id="rsvp-form" action="#" method="post">
           <div class="frame12-field frame12-field--first">
             <label class="frame12-label" for="rsvp-first">Имя</label>
             <input
@@ -355,6 +355,7 @@
             <span class="frame12-line" aria-hidden="true"></span>
           </div>
           <button type="submit" class="frame12-submit">Отправить</button>
+          <p id="rsvp-form-status" class="frame12-form-status" role="status" aria-live="polite" hidden></p>
         </form>
       </div>
     </section>
