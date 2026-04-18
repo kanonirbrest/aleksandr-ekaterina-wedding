@@ -42,6 +42,7 @@
    * RSVP → Google Form «свадьба А и Е»
    * Редактирование: https://docs.google.com/forms/d/e/1FAIpQLSfvboVxZtfpUT-K4bWhSiD-ue9c3btvxSSTHM058dzUQ300EQ/viewform?usp=publish-editor
    * Переопределение: window.RSVP_GOOGLE_FORMS до загрузки этого файла.
+   * Вопрос «Количество персон» в Google Forms лучше переименовать в «Количество взрослых» (entry.449907991 не менять).
    */
   var RSVP_GOOGLE_FORMS = {
     action:
