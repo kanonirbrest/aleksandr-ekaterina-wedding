@@ -254,31 +254,73 @@
     return "assets/" + encodeURIComponent(name) + ".png";
   }
 
+  function dressStripLogicalCount() {
+    return DRESS_SLIDES.length;
+  }
+
+  function dressCenterScrollLeft(viewport, slideEl) {
+    var left =
+      slideEl.offsetLeft + slideEl.offsetWidth / 2 - viewport.clientWidth / 2;
+    var max = Math.max(0, viewport.scrollWidth - viewport.clientWidth);
+    if (left < 0) return 0;
+    if (left > max) return max;
+    return left;
+  }
+
   function dressSliderNearestIndex(viewport, strip) {
     var slides = strip.querySelectorAll(".dress-slide");
-    if (!slides.length) return 0;
-    var sl = viewport.scrollLeft;
+    var n = dressStripLogicalCount();
+    if (!slides.length || !n) return 0;
+    var viewMid = viewport.scrollLeft + viewport.clientWidth / 2;
     var best = 0;
     var bestD = Infinity;
     for (var j = 0; j < slides.length; j++) {
-      var d = Math.abs(slides[j].offsetLeft - sl);
+      var el = slides[j];
+      var mid = el.offsetLeft + el.offsetWidth / 2;
+      var d = Math.abs(mid - viewMid);
       if (d < bestD) {
         bestD = d;
         best = j;
       }
     }
-    return best;
+    return best % n;
   }
 
   function dressScrollToIndex(viewport, strip, index, smooth) {
     var slides = strip.querySelectorAll(".dress-slide");
-    if (!slides.length) return;
-    var n = slides.length;
+    var n = dressStripLogicalCount();
+    if (!slides.length || !n || slides.length < 3 * n) return;
     var i = ((index % n) + n) % n;
+    var el = slides[n + i];
     viewport.scrollTo({
-      left: slides[i].offsetLeft,
+      left: dressCenterScrollLeft(viewport, el),
       behavior: smooth === false ? "auto" : "smooth",
     });
+  }
+
+  function dressNormalizeLoopScroll(viewport, strip) {
+    var slides = strip.querySelectorAll(".dress-slide");
+    var n = dressStripLogicalCount();
+    if (!slides.length || !n || slides.length < 3 * n) return;
+    var blockW = slides[n].offsetLeft - slides[0].offsetLeft;
+    if (blockW <= 0) return;
+    var sl = viewport.scrollLeft;
+    var viewMid = sl + viewport.clientWidth / 2;
+    var realStart = slides[n].offsetLeft;
+    var thirdStart = slides[2 * n].offsetLeft;
+    if (viewMid < realStart) {
+      viewport.scrollLeft = sl + blockW;
+    } else if (viewMid >= thirdStart) {
+      viewport.scrollLeft = sl - blockW;
+    }
+  }
+
+  function dressInitLoopScroll(viewport, strip) {
+    var slides = strip.querySelectorAll(".dress-slide");
+    var n = dressStripLogicalCount();
+    if (!slides.length || !n || slides.length < 3 * n) return;
+    var el = slides[n];
+    viewport.scrollLeft = dressCenterScrollLeft(viewport, el);
   }
 
   function wireDressSlider() {
@@ -287,20 +329,60 @@
     var arrowBtn = document.getElementById("dress-slider-arrow");
     if (!strip || !viewport) return;
 
+    var n = dressStripLogicalCount();
     strip.innerHTML = "";
-    DRESS_SLIDES.forEach(function (name, i) {
-      var fig = document.createElement("figure");
-      fig.className = "dress-slide";
-      fig.setAttribute("role", "listitem");
+    for (var b = 0; b < 3; b++) {
+      DRESS_SLIDES.forEach(function (name, i) {
+        var fig = document.createElement("figure");
+        fig.className = "dress-slide";
+        fig.setAttribute("role", "listitem");
 
-      var img = document.createElement("img");
-      img.src = dressSlideUrl(name);
-      img.alt = "Пример образа в стиле total black, фото " + (i + 1) + " из " + DRESS_SLIDES.length;
-      img.loading = i < 2 ? "eager" : "lazy";
-      img.decoding = "async";
+        var img = document.createElement("img");
+        img.src = dressSlideUrl(name);
+        img.alt =
+          "Пример образа в стиле total black, фото " +
+          (i + 1) +
+          " из " +
+          n;
+        img.loading = b === 1 && i < 2 ? "eager" : "lazy";
+        img.decoding = "async";
 
-      fig.appendChild(img);
-      strip.appendChild(fig);
+        fig.appendChild(img);
+        strip.appendChild(fig);
+      });
+    }
+
+    function scheduleDressLoopNormalize() {
+      if (viewport._dressNormTimer) clearTimeout(viewport._dressNormTimer);
+      viewport._dressNormTimer = setTimeout(function () {
+        viewport._dressNormTimer = null;
+        dressNormalizeLoopScroll(viewport, strip);
+      }, 100);
+    }
+
+    viewport.addEventListener("scroll", scheduleDressLoopNormalize, {
+      passive: true,
+    });
+    viewport.addEventListener("scrollend", function () {
+      if (viewport._dressNormTimer) clearTimeout(viewport._dressNormTimer);
+      viewport._dressNormTimer = null;
+      dressNormalizeLoopScroll(viewport, strip);
+    });
+
+    var dressResizeTimer = null;
+    window.addEventListener("resize", function () {
+      clearTimeout(dressResizeTimer);
+      dressResizeTimer = setTimeout(function () {
+        dressResizeTimer = null;
+        var idx = dressSliderNearestIndex(viewport, strip);
+        dressScrollToIndex(viewport, strip, idx, false);
+      }, 150);
+    });
+
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        dressInitLoopScroll(viewport, strip);
+      });
     });
 
     viewport.addEventListener("keydown", function (e) {
@@ -321,7 +403,7 @@
         var slides = strip.querySelectorAll(".dress-slide");
         if (!slides.length) return;
         var idx = dressSliderNearestIndex(viewport, strip);
-        var prev = (idx - 1 + slides.length) % slides.length;
+        var prev = (idx - 1 + n) % n;
         dressScrollToIndex(viewport, strip, prev, true);
       });
     }
