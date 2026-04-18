@@ -3,7 +3,6 @@
   --hero-frame-w: 360px;
   --hero-frame-h: 798px;
   --bg: #fdfcf8;
-  --bg-plan: #ffffff;
   --ink: #000000;
   --ink-soft: #070202;
   --mono: #25272b;
@@ -657,7 +656,7 @@ body {
 
 .block.block--plan.frame9 {
   padding: 0 0 48px;
-  background: #ffffff;
+  background: var(--bg);
 }
 
 .plan9-inner {
@@ -667,7 +666,7 @@ body {
   min-height: 888px;
   margin: 0 auto;
   padding: 0;
-  background: #ffffff;
+  background: var(--bg);
   overflow: visible;
 }
 
