@@ -1080,7 +1080,7 @@ body {
   margin: 0;
   border-radius: 2px;
   overflow: hidden;
-  background: #ffffff;
+  background: var(--bg);
   scroll-snap-align: center;
   scroll-snap-stop: normal;
 }
