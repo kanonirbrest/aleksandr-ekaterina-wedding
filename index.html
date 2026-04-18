@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="preload" href="assets/Layer%200%201.png" as="image" type="image/png" />
+  <link rel="preload" href="assets/Mask%20group-1.png" as="image" type="image/png" />
+  <title>Alexander & Ekaterina — приглашение</title>
+  <meta name="description" content="Свадьба — 29 августа 2026, Минск" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Forum&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <main class="page" data-wedding="2026-08-29">
+    <!-- Герой: слои из assets (PNG). -->
+    <section class="hero hero--intro" id="top" aria-label="Обложка приглашения">
+      <div class="hero-stack">
+        <img class="hero-cloud hero-cloud--bottom" src="assets/Mask%20group-1.png" alt="" decoding="async" />
+        <div class="hero-moon-stack">
+          <img class="hero-moon" src="assets/Layer%200%201.png" alt="" decoding="async" />
+          <img class="hero-monogram" src="assets/Group%2013.png" alt="" decoding="async" />
+        </div>
+        <img class="hero-cloud hero-cloud--top" src="assets/Mask%20group.png" alt="" decoding="async" />
+        <div class="hero-typo">
+          <img
+            class="hero-wedding-img"
+            src="assets/Group%208.png"
+            width="154"
+            height="44"
+            alt="Wedding"
+            decoding="async"
+          />
+          <p class="hero-date-line" id="hero-date-line">29 августа 2026</p>
+          <p class="hero-city-line" id="hero-city-line">Минск</p>
+        </div>
+      </div>
+      <a class="hero-scroll" href="#invite" aria-label="Перейти к тексту приглашения">
+        <img class="hero-scroll-img" src="assets/Line%206.png" alt="" decoding="async" />
+      </a>
+    </section>
+
+    <!-- Frame 7: тексты + календарь; день свадьбы подсвечивается (не «сегодня») -->
+    <section class="block frame7" id="invite" aria-labelledby="cal-title">
+      <div class="frame7-inner">
+        <img
+          class="frame7-deco"
+          src="assets/Layer%2010%201.png"
+          width="117"
+          height="263"
+          alt=""
+          decoding="async"
+        />
+        <p class="frame7-line frame7-line--center">Луна сегодня красивая,</p>
+        <p class="frame7-line frame7-line--tag">не правда ли?</p>
+        <p class="frame7-text frame7-text--narrow">Говорят, за этими словами скрывается нечто большее.</p>
+        <p class="frame7-text">В этот день мы тоже скажем важное — и будем счастливы, если вы окажетесь рядом, когда это произойдет.</p>
+        <h2 class="frame7-month" id="cal-title">
+          <span id="calendar-month">Август</span> <span id="calendar-year">2026</span>
+        </h2>
+        <div class="frame7-cal">
+          <div id="calendar-root"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="block block--location frame8" id="location" aria-labelledby="loc-title">
+      <div class="frame8-inner">
+        <img
+          class="frame8-deco frame8-deco--tl"
+          src="assets/%D0%BD%D0%B0%D1%80%D0%B8%D1%81%D1%83%D0%B8%CC%86%20%D0%BF%D0%B0%D0%BA%20%D0%BA%D0%B0%D1%80%D1%82%D0%B8%D0%BD%D0%BE%D0%BA%20%D0%B2%20%D1%81%D1%82%D0%B8%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D0%BA%D0%B5%20%D1%80%D0%B5%D1%84%D0%B0.%20%D1%80%D0%B8%D1%81%D0%BE%D0%B2%D0%BA%D0%B0%20%D0%BE%D1%82%D1%80%D1%83%D0%BA%D0%B8_%20%D0%BA%D1%80%D0%B0%D1%81%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BA%D1%80%D0%B5%D1%81%D1%82%D0%B8%D0%BA%2C%20%D1%87%D0%B5%D1%80%D0%BD%D0%B0%D1%8F%20%D0%B1%D1%83%D1%82%D1%8B%D0%BB%D0%BA%D0%B0%20%D0%B2%D0%B8%D0%BD%D0%B0%2C%20%D0%B1%D1%83%D1%82%D1%8B%D0%BB%D0%BA%D0%B0%20%D0%B8%D0%B3%D1%80%D0%B8%D1%81%D1%82%D0%BE%D0%B3%D0%BE%2C%20%D0%BA%D0%BE%D0%BD%D0%B2%D0%B5%D1%80%D1%82%2C%20%D0%B7%D0%B5%D0%BB%D0%B5%D0%BD%D0%B0%D1%8F%20%D0%BC%D0%BE%D0%BD%D1%81%D1%82.png"
+          width="108"
+          height="98"
+          alt=""
+          decoding="async"
+        />
+        <img
+          class="frame8-deco frame8-deco--tr"
+          src="assets/%D0%BD%D0%B0%D1%80%D0%B8%D1%81%D1%83%D0%B8%CC%86%20%D0%BF%D0%B0%D0%BA%20%D0%BA%D0%B0%D1%80%D1%82%D0%B8%D0%BD%D0%BE%D0%BA%20%D0%B2%20%D1%81%D1%82%D0%B8%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D0%BA%D0%B5%20%D1%80%D0%B5%D1%84%D0%B0.%20%D1%80%D0%B8%D1%81%D0%BE%D0%B2%D0%BA%D0%B0%20%D0%BE%D1%82%D1%80%D1%83%D0%BA%D0%B8_%20%D0%BA%D1%80%D0%B0%D1%81%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BA%D1%80%D0%B5%D1%81%D1%82%D0%B8%D0%BA%2C%20%D1%87%D0%B5%D1%80%D0%BD%D0%B0%D1%8F%20%D0%B1%D1%83%D1%82%D1%8B%D0%BB%D0%BA%D0%B0%20%D0%B2%D0%B8%D0%BD%D0%B0%2C%20%D0%B1%D1%83%D1%82%D1%8B%D0%BB%D0%BA%D0%B0%20%D0%B8%D0%B3%D1%80%D0%B8%D1%81%D1%82%D0%BE%D0%B3%D0%BE%2C%20%D0%BA%D0%BE%D0%BD%D0%B2%D0%B5%D1%80%D1%82%2C%20%D0%B7%D0%B5%D0%BB%D0%B5%D0%BD%D0%B0%D1%8F%20%D0%BC%D0%BE%D0%BD%D1%81%D1%82.png"
+          width="103"
+          height="89"
+          alt=""
+          decoding="async"
+        />
+        <h2 id="loc-title" class="frame8-title">Локация</h2>
+        <p class="frame8-address">
+          г. Минск, пр. Машерова 15/1 <span class="nobr">(вход со двора)</span>
+        </p>
+        <div class="frame8-map-wrap">
+          <iframe
+            class="frame8-map"
+            title="Яндекс Карта: проспект Машерова 15/1, Минск"
+            src="https://yandex.ru/map-widget/v1/?z=19&amp;ll=27.566578311708806%2C53.91445590297404&amp;l=map&amp;pt=27.5662484%2C53.9148182%2Cpm2rdm"
+            width="321"
+            height="200"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen
+          ></iframe>
+        </div>
+        <p class="frame8-maplink">
+          <a
+            class="frame8-maplink-a"
+            href="https://yandex.ru/maps/?z=19&amp;ll=27.566578311708806,53.91445590297404&amp;l=map&amp;pt=27.5662484,53.9148182&amp;origin=jsapi_2_1_79&amp;from=api-maps&amp;utm_source=jsapi"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Открыть в Яндекс Картах</a>
+        </p>
+        <div class="frame8-strip" aria-hidden="true">
+          <div class="frame8-strip-slot">
+            <img src="assets/image%2033.png" alt="" decoding="async" />
+          </div>
+          <div class="frame8-strip-slot">
+            <img src="assets/image%2033.png" alt="" decoding="async" />
+          </div>
+          <div class="frame8-strip-slot">
+            <img src="assets/image%2033.png" alt="" decoding="async" />
+          </div>
+          <div class="frame8-strip-slot">
+            <img src="assets/image%2033.png" alt="" decoding="async" />
+          </div>
+          <div class="frame8-strip-slot">
+            <img src="assets/image%2033.png" alt="" decoding="async" />
+          </div>
+          <div class="frame8-strip-slot">
+            <img src="assets/image%2033.png" alt="" decoding="async" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="block block--plan frame9" id="plan" aria-labelledby="plan-title">
+      <div class="plan9-inner">
+        <div class="plan9-group22" data-asset="plan-group22" aria-hidden="true"></div>
+        <div class="plan9-line-wrap" aria-hidden="true">
+          <img class="plan9-line-img" src="assets/Line%207.png" width="149" height="2" alt="" decoding="async" />
+        </div>
+        <h2 id="plan-title" class="plan9-title">План дня</h2>
+        <img
+          class="plan9-spark"
+          src="assets/Layer%207%202.png"
+          width="62"
+          height="55"
+          alt=""
+          decoding="async"
+        />
+        <div class="plan9-fuzz plan9-fuzz--1" data-asset="plan8-1" aria-hidden="true"></div>
+        <div class="plan9-fuzz plan9-fuzz--2" data-asset="plan8-2" aria-hidden="true"></div>
+        <div class="plan9-fuzz plan9-fuzz--3" data-asset="plan8-3" aria-hidden="true"></div>
+        <ul class="plan9-list">
+          <li class="plan9-row plan9-row--1">
+            <img class="plan9-bullet" src="assets/image%2029.png" width="18" height="15" alt="" decoding="async" />
+            <p class="plan9-copy plan9-copy--100">
+              Встреча гостей. Welcome drink <span class="plan9-time">15:00</span>
+            </p>
+          </li>
+          <li class="plan9-row plan9-row--2">
+            <img class="plan9-bullet" src="assets/image%2029.png" width="18" height="15" alt="" decoding="async" />
+            <p class="plan9-copy plan9-copy--130">Церемония <span class="plan9-time">16:30</span></p>
+          </li>
+          <li class="plan9-row plan9-row--3">
+            <img class="plan9-bullet" src="assets/image%2029.png" width="18" height="15" alt="" decoding="async" />
+            <p class="plan9-copy plan9-copy--130">Свадебный ужин <span class="plan9-time">17:30</span></p>
+          </li>
+          <li class="plan9-row plan9-row--4">
+            <img class="plan9-bullet" src="assets/image%2029.png" width="18" height="15" alt="" decoding="async" />
+            <p class="plan9-copy plan9-copy--130">Вечерняя часть <span class="plan9-time">21:30</span></p>
+          </li>
+          <li class="plan9-row plan9-row--5">
+            <img class="plan9-bullet" src="assets/image%2029.png" width="18" height="15" alt="" decoding="async" />
+            <p class="plan9-copy plan9-copy--130">Финал <span class="plan9-time">23:30</span></p>
+          </li>
+        </ul>
+        <img
+          class="plan9-bottom-moon"
+          src="assets/Layer%203%205.png"
+          width="305"
+          height="357"
+          alt=""
+          decoding="async"
+        />
+      </div>
+    </section>
+
+    <!-- Frame 11: 360×535, #FDFCF8 — декор из Group 27 / Group 28 + Layer 41 -->
+    <section class="block block--gifts frame11" id="gifts" aria-labelledby="gifts-title">
+      <div class="frame11-inner">
+        <h2 id="gifts-title" class="frame11-title">Подарки</h2>
+        <div class="frame11-art" aria-hidden="true">
+          <img
+            class="frame11-img frame11-img--g27"
+            src="assets/Group%2027.png"
+            width="415"
+            height="363"
+            alt=""
+            decoding="async"
+          />
+          <img
+            class="frame11-img frame11-img--cross"
+            src="assets/cross.png"
+            width="139"
+            height="139"
+            alt=""
+            decoding="async"
+          />
+          <img
+            class="frame11-img frame11-img--g28"
+            src="assets/Group%2028.png"
+            width="356"
+            height="244"
+            alt=""
+            decoding="async"
+          />
+          <img
+            class="frame11-img frame11-img--l41"
+            src="assets/Layer%2041%201.png"
+            width="86"
+            height="78"
+            alt=""
+            decoding="async"
+          />
+        </div>
+        <p class="frame11-copy">
+          Будем благодарны креативному творческому или памятному подарку вместо недолговечных цветов и напитков, чтобы не они напоминали о вас и нашем дне.
+        </p>
+      </div>
+    </section>
+
+    <!-- Frame 10: 360×745, слайдер — только свайп / горизонтальный скролл -->
+    <section class="block block--dress frame10" id="dress" aria-labelledby="dress-title">
+      <div class="frame10-inner">
+        <h2 id="dress-title" class="frame10-dress-heading">Dress Code</h2>
+        <p class="frame10-total-black">Total Black</p>
+        <p class="frame10-dress-note">
+          Будем благодарны, если вы поддержите его в своих образах.
+        </p>
+        <div class="frame10-slider" data-dress-slider>
+          <div
+            class="frame10-slider-viewport"
+            id="dress-slider-viewport"
+            role="region"
+            aria-roledescription="карусель"
+            aria-label="Примеры образов total black — листайте горизонтально"
+            tabindex="0"
+          >
+            <div class="dress-strip" id="dress-strip" role="list"></div>
+          </div>
+        </div>
+        <button type="button" class="frame10-swiper-arrow" id="dress-slider-arrow" aria-label="Предыдущий образ">
+          <img src="assets/arrow.png" width="218" height="15" alt="" decoding="async" />
+        </button>
+      </div>
+    </section>
+
+    <!-- Frame 12: 360×707, RSVP + декор image 27 / Layer 4 1 -->
+    <section class="block block--rsvp frame12" id="rsvp" aria-labelledby="rsvp-title">
+      <div class="frame12-inner">
+        <img
+          class="frame12-deco frame12-deco--27"
+          src="assets/image%2027.png"
+          width="40"
+          height="32"
+          alt=""
+          decoding="async"
+        />
+        <img
+          class="frame12-deco frame12-deco--l4"
+          src="assets/Layer%204%201.png"
+          width="68"
+          height="59"
+          alt=""
+          decoding="async"
+        />
+        <h2 id="rsvp-title" class="frame12-heading">
+          <span class="frame12-heading__line frame12-heading__line--1">Ответ</span>
+          <span class="frame12-heading__line frame12-heading__line--2">на приглашение</span>
+        </h2>
+        <p class="frame12-note">
+          Пожалуйста, подтвердите свое присутствие до&nbsp;01.07.2026
+        </p>
+        <form class="frame12-form" action="#" method="post">
+          <div class="frame12-field frame12-field--first">
+            <label class="frame12-label" for="rsvp-first">Имя</label>
+            <input
+              id="rsvp-first"
+              class="frame12-input"
+              type="text"
+              name="first_name"
+              autocomplete="given-name"
+              required
+            />
+            <span class="frame12-line" aria-hidden="true"></span>
+          </div>
+          <div class="frame12-field frame12-field--last">
+            <label class="frame12-label" for="rsvp-last">Фамилия</label>
+            <input
+              id="rsvp-last"
+              class="frame12-input"
+              type="text"
+              name="last_name"
+              autocomplete="family-name"
+              required
+            />
+            <span class="frame12-line" aria-hidden="true"></span>
+          </div>
+          <div class="frame12-radios" role="group" aria-label="Присутствие">
+            <label class="frame12-radio">
+              <input type="radio" name="attend" value="yes" required />
+              <span class="frame12-radio-ui" aria-hidden="true"></span>
+              <span class="frame12-radio-text">Я приду</span>
+            </label>
+            <label class="frame12-radio">
+              <input type="radio" name="attend" value="no" />
+              <span class="frame12-radio-ui" aria-hidden="true"></span>
+              <span class="frame12-radio-text">Я не приду</span>
+            </label>
+          </div>
+          <div class="frame12-field frame12-field--persons">
+            <label class="frame12-label" for="rsvp-persons">Количество персон</label>
+            <input
+              id="rsvp-persons"
+              class="frame12-input"
+              type="number"
+              name="persons"
+              min="0"
+              step="1"
+              inputmode="numeric"
+            />
+            <span class="frame12-line" aria-hidden="true"></span>
+          </div>
+          <div class="frame12-field frame12-field--children">
+            <label class="frame12-label" for="rsvp-children">Количество детей (&lt;14 лет)</label>
+            <input
+              id="rsvp-children"
+              class="frame12-input"
+              type="number"
+              name="children"
+              min="0"
+              step="1"
+              inputmode="numeric"
+            />
+            <span class="frame12-line" aria-hidden="true"></span>
+          </div>
+          <div class="frame12-field frame12-field--allergy">
+            <label class="frame12-label frame12-label--multiline" for="rsvp-allergy">
+              Есть ли у вас аллергии или особенности питания, о которых нам стоит знать?
+            </label>
+            <input
+              id="rsvp-allergy"
+              class="frame12-input"
+              type="text"
+              name="diet_notes"
+              autocomplete="off"
+            />
+            <span class="frame12-line" aria-hidden="true"></span>
+          </div>
+          <button type="submit" class="frame12-submit">Отправить</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Frame 13: таймер в рамке 300×130, декор, имена Group 12 -->
+    <section class="block block--countdown frame13" aria-labelledby="cd-title">
+      <div class="frame13-inner">
+        <img
+          class="frame13-deco frame13-deco--layer0"
+          src="assets/Layer%200%201.png"
+          width="574"
+          height="440"
+          alt=""
+          decoding="async"
+        />
+        <img
+          class="frame13-deco frame13-deco--96"
+          src="assets/96%201.png"
+          width="302"
+          height="269"
+          alt=""
+          decoding="async"
+        />
+        <h2 id="cd-title" class="frame13-heading">
+          <span class="frame13-heading__line frame13-heading__line--1">До начала</span>
+          <span class="frame13-heading__line frame13-heading__line--2">мероприятия</span>
+        </h2>
+        <div class="frame13-timer-border" aria-hidden="true"></div>
+        <div
+          class="frame13-countdown"
+          id="countdown"
+          data-target="2026-08-29T15:00:00+03:00"
+          role="timer"
+          aria-live="polite"
+        >
+          <span class="frame13-val countdown-val" data-unit="days">—</span>
+          <span class="frame13-unit countdown-unit">дней</span>
+          <span class="frame13-val countdown-val" data-unit="hours">—</span>
+          <span class="frame13-unit countdown-unit">часов</span>
+          <span class="frame13-val countdown-val" data-unit="minutes">—</span>
+          <span class="frame13-unit countdown-unit">минут</span>
+          <span class="frame13-val countdown-val" data-unit="seconds">—</span>
+          <span class="frame13-unit countdown-unit">секунд</span>
+        </div>
+        <img
+          class="frame13-names"
+          src="assets/Group%2012.png"
+          width="264"
+          height="77"
+          alt="Alexander и Ekaterina"
+          decoding="async"
+        />
+      </div>
+    </section>
+
+  </main>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
