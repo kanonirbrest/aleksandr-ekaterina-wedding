@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="preload" href="assets/Layer%200%201.png" as="image" type="image/png" />
-  <link rel="preload" href="assets/Mask%20group-1.png" as="image" type="image/png" />
+  <link rel="preload" href="assets/image.png" as="image" type="image/png" />
   <title>Alexander & Ekaterina — приглашение</title>
   <meta name="description" content="Свадьба — 29 августа 2026, Минск" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -16,12 +15,17 @@
   <main class="page" data-wedding="2026-08-29">
     <section class="hero hero--intro" id="top" aria-label="Обложка приглашения">
       <div class="hero-stack">
-        <img class="hero-cloud hero-cloud--bottom" src="assets/Mask%20group-1.png" alt="" decoding="async" />
-        <div class="hero-moon-stack">
-          <img class="hero-moon" src="assets/Layer%200%201.png" alt="" decoding="async" />
-          <img class="hero-monogram" src="assets/Group%2013.png" alt="" decoding="async" />
+        <div class="hero-group32">
+          <img
+            class="hero-art"
+            src="assets/image.png"
+            width="656"
+            height="784"
+            alt="Alexander и Ekaterina — иллюстрация"
+            decoding="async"
+            fetchpriority="high"
+          />
         </div>
-        <img class="hero-cloud hero-cloud--top" src="assets/Mask%20group.png" alt="" decoding="async" />
         <div class="hero-typo">
           <img
             class="hero-wedding-img"
@@ -34,10 +38,10 @@
           <p class="hero-date-line" id="hero-date-line">29 августа 2026</p>
           <p class="hero-city-line" id="hero-city-line">Минск</p>
         </div>
+        <a class="hero-scroll" href="#invite" aria-label="Перейти к тексту приглашения">
+          <span class="hero-scroll-line" aria-hidden="true"></span>
+        </a>
       </div>
-      <a class="hero-scroll" href="#invite" aria-label="Перейти к тексту приглашения">
-        <img class="hero-scroll-img" src="assets/Line%206.png" alt="" decoding="async" />
-      </a>
     </section>
 
     <section class="block frame7" id="invite" aria-labelledby="cal-title">

@@ -1,6 +1,7 @@
 :root {
   --page-w: 450px;
-  --hero-h: 798px;
+  --hero-frame-w: 360px;
+  --hero-frame-h: 798px;
   --bg: #fdfcf8;
   --bg-plan: #ffffff;
   --ink: #000000;
@@ -17,6 +18,8 @@
   --cal-num: 22.7928px;
   --count-num: 50px;
   --lh-tight: 1.1;
+  --hero-line6-len: 50px;
+  --hero-line6-top: 654px;
 }
 
 *,
@@ -54,10 +57,11 @@ body {
 }
 
 .page {
-  width: 100%;
-  max-width: 100%;
+  width: min(100%, var(--page-w));
   flex: 1 0 auto;
-  margin: 0;
+  margin-left: auto;
+  margin-right: auto;
+  align-self: center;
   background: var(--bg);
 }
 
@@ -72,69 +76,42 @@ body {
   margin: 0;
   padding: 0;
   background: #fdfcf8;
-  overflow: hidden;
-  min-height: var(--hero-h);
+  overflow-x: hidden;
+  overflow-y: visible;
+  min-height: var(--hero-frame-h);
 }
 
 .hero-stack {
   position: relative;
-  width: 100%;
-  max-width: min(var(--page-w), 100%);
-  min-height: var(--hero-h);
+  width: var(--hero-frame-w);
+  max-width: min(var(--hero-frame-w), 100%);
+  height: var(--hero-frame-h);
+  min-height: var(--hero-frame-h);
   margin: 0 auto;
   background: #fdfcf8;
+  overflow-x: hidden;
+  overflow-y: visible;
 }
 
-.hero-cloud--bottom {
+.hero-group32 {
   position: absolute;
   z-index: 1;
-  left: calc(150 * 100% / 360);
-  top: 350px;
-  width: calc(200 * 100% / 360);
-  height: auto;
-  max-width: 56%;
-  pointer-events: none;
-}
-
-.hero-moon-stack {
-  position: absolute;
-  z-index: 2;
-  left: 50%;
-  top: 95px;
-  transform: translateX(-50%);
-  width: min(299px, calc(100% - 24px));
-  max-width: 83%;
+  left: 30px;
+  top: 54px;
+  width: 320px;
+  height: 560px;
+  margin: 0;
+  padding: 0;
   line-height: 0;
   pointer-events: none;
 }
 
-.hero-moon-stack .hero-moon {
-  position: relative;
-  z-index: 1;
+.hero-art {
   display: block;
   width: 100%;
-  height: auto;
-}
-
-.hero-moon-stack .hero-monogram {
-  position: absolute;
-  z-index: 2;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 154px;
-  max-width: 52%;
-  height: auto;
-}
-
-.hero-cloud--top {
-  position: absolute;
-  z-index: 4;
-  left: calc(30 * 100% / 360);
-  top: 54px;
-  width: calc(140 * 100% / 360);
-  max-width: 42%;
-  height: auto;
+  height: 100%;
+  object-fit: contain;
+  object-position: center top;
   pointer-events: none;
 }
 
@@ -154,7 +131,7 @@ body {
   font-style: normal;
   font-size: var(--title);
   font-weight: 400;
-  line-height: var(--lh-tight);
+  line-height: 1.1;
   letter-spacing: -0.02em;
   color: var(--ink);
 }
@@ -164,7 +141,7 @@ body {
   left: 50%;
   top: 493px;
   transform: translateX(calc(-50% + 1.56px));
-  width: 154px;
+  width: 153.13px;
   max-width: 44%;
   height: auto;
   display: block;
@@ -172,32 +149,33 @@ body {
 }
 
 .hero-date-line {
-  left: 50%;
+  left: 94px;
   top: 544px;
-  transform: translateX(-50%);
-  width: min(181px, calc(100% - 48px));
-  max-width: 90%;
+  width: 181px;
+  max-width: min(181px, calc(100% - 108px));
 }
 
 .hero-city-line {
-  left: 50%;
+  left: 145px;
   top: 581px;
-  transform: translateX(-50%);
-  width: min(120px, calc(100% - 48px));
-  max-width: 90%;
+  width: 79px;
+  max-width: min(79px, calc(100% - 160px));
 }
 
 .hero-scroll {
   position: absolute;
   z-index: 6;
   left: 50%;
-  top: 628px;
+  top: var(--hero-line6-top);
+  width: 48px;
+  height: calc(var(--hero-frame-h) - var(--hero-line6-top));
   transform: translateX(-50%);
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   margin: 0;
-  padding: 8px;
+  padding: 0;
   line-height: 0;
   text-decoration: none;
   cursor: pointer;
@@ -214,20 +192,36 @@ body {
   border-radius: 4px;
 }
 
-.hero-scroll-img {
-  display: block;
-  width: auto;
-  max-width: 50px;
-  height: auto;
-  max-height: 72px;
-  object-fit: contain;
-  object-position: center;
+/* Стрелка вниз: стержень + наконечник, общая высота ~50px, по центру кадра */
+.hero-scroll-line {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 14px;
+  height: var(--hero-line6-len);
+  flex: none;
+  margin: 0;
+  background: transparent;
 }
 
-@media (max-width: 359px) {
-  .hero-scroll {
-    top: 78.5%;
-  }
+.hero-scroll-line::before {
+  content: "";
+  width: 2px;
+  height: calc(var(--hero-line6-len) - 7px);
+  flex-shrink: 0;
+  background: #000000;
+}
+
+.hero-scroll-line::after {
+  content: "";
+  width: 0;
+  height: 0;
+  margin-top: -1px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 7px solid #000000;
+  flex-shrink: 0;
 }
 
 .block {
@@ -486,8 +480,9 @@ body {
   object-fit: contain;
 }
 
+/* Отрицательные left/right выносят лист за край; на узкой колонке фикс -49px отрезает почти весь мотив */
 .frame8-deco--tl {
-  left: -49px;
+  left: max(-49px, calc(22px - 14vw));
   top: 1px;
   width: 108px;
   height: auto;
@@ -497,7 +492,7 @@ body {
 
 .frame8-deco--tr {
   left: auto;
-  right: -8px;
+  right: max(-8px, calc(26px - 9vw));
   top: 81px;
   width: 103px;
   height: auto;
@@ -641,9 +636,9 @@ body {
   transform-origin: 50% 100%;
 }
 
-@media (max-width: 359px) {
+@media (max-width: 380px) {
   .frame8-deco--tl {
-    left: -36px;
+    transform: rotate(-18deg);
   }
 }
 
