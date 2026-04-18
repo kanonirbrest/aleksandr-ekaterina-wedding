@@ -303,61 +303,6 @@
       strip.appendChild(fig);
     });
 
-    var touchStartX = 0;
-    var dressWheelLock = false;
-
-    viewport.addEventListener(
-      "touchstart",
-      function (e) {
-        if (e.touches && e.touches[0]) touchStartX = e.touches[0].clientX;
-      },
-      { passive: true }
-    );
-
-    viewport.addEventListener(
-      "touchend",
-      function (e) {
-        var t = e.changedTouches && e.changedTouches[0];
-        if (!t) return;
-        var dx = t.clientX - touchStartX;
-        if (Math.abs(dx) < 40) return;
-        var slides = strip.querySelectorAll(".dress-slide");
-        if (!slides.length) return;
-        var idx = dressSliderNearestIndex(viewport, strip);
-        if (dx < 0) {
-          dressScrollToIndex(viewport, strip, idx + 1, true);
-        } else {
-          dressScrollToIndex(viewport, strip, idx - 1, true);
-        }
-      },
-      { passive: true }
-    );
-
-    viewport.addEventListener(
-      "wheel",
-      function (e) {
-        var hx = Math.abs(e.deltaX);
-        var hy = Math.abs(e.deltaY);
-        if (hx < 2 && hx <= hy) return;
-        e.preventDefault();
-        if (dressWheelLock) return;
-        dressWheelLock = true;
-        window.setTimeout(function () {
-          dressWheelLock = false;
-        }, 450);
-        var slides = strip.querySelectorAll(".dress-slide");
-        if (!slides.length) return;
-        var idx = dressSliderNearestIndex(viewport, strip);
-        var delta = e.deltaX !== 0 ? e.deltaX : e.deltaY;
-        if (delta > 0) {
-          dressScrollToIndex(viewport, strip, idx + 1, true);
-        } else if (delta < 0) {
-          dressScrollToIndex(viewport, strip, idx - 1, true);
-        }
-      },
-      { passive: false }
-    );
-
     viewport.addEventListener("keydown", function (e) {
       var slides = strip.querySelectorAll(".dress-slide");
       if (!slides.length) return;
