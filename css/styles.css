@@ -664,7 +664,7 @@ body {
   position: relative;
   width: 100%;
   max-width: var(--page-w);
-  min-height: 960px;
+  min-height: 888px;
   margin: 0 auto;
   padding: 0;
   background: #ffffff;
@@ -730,7 +730,7 @@ body {
 
 .plan9-fuzz--1 {
   left: 40px;
-  top: 880px;
+  top: 808px;
   width: 43px;
   height: 59px;
 }
@@ -835,10 +835,6 @@ body {
 
 .plan9-row--4 .plan9-copy {
   max-width: min(193px, calc(100% - 120px));
-}
-
-.plan9-row--5 .plan9-copy {
-  max-width: min(89px, calc(100% - 120px));
 }
 
 .block.block--gifts.frame11 {
@@ -1085,7 +1081,7 @@ body {
   margin: 0;
   border-radius: 2px;
   overflow: hidden;
-  background: #eceae8;
+  background: #ffffff;
   scroll-snap-align: center;
   scroll-snap-stop: normal;
 }
