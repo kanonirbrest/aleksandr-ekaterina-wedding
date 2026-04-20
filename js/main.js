@@ -196,49 +196,6 @@
     });
   }
 
-  function tryFirst(el, bases) {
-    if (!el || !bases || !bases.length) return;
-    var i = 0;
-    function kick() {
-      if (i >= bases.length) return;
-      var url = "assets/" + encodeURIComponent(bases[i]) + ".png";
-      var img = new Image();
-      img.onload = function () {
-        el.classList.add("has-image");
-        el.style.backgroundImage = 'url("' + url + '")';
-      };
-      img.onerror = function () {
-        i += 1;
-        kick();
-      };
-      img.src = url;
-    }
-    kick();
-  }
-
-  function tryFirstOnAll(els, bases) {
-    if (!els || !els.length) return;
-    var arr = Array.prototype.slice.call(els);
-    var i = 0;
-    function kick() {
-      if (i >= bases.length) return;
-      var url = "assets/" + encodeURIComponent(bases[i]) + ".png";
-      var img = new Image();
-      img.onload = function () {
-        arr.forEach(function (el) {
-          el.classList.add("has-image");
-          el.style.backgroundImage = 'url("' + url + '")';
-        });
-      };
-      img.onerror = function () {
-        i += 1;
-        kick();
-      };
-      img.src = url;
-    }
-    kick();
-  }
-
   var DRESS_SLIDES = [
     "Layer 1 21",
     "Layer 2 2",
@@ -580,10 +537,6 @@
   }
 
   function wireAssets() {
-    tryFirst(document.querySelector('[data-asset="plan8-1"]'), ["Group 8"]);
-    tryFirst(document.querySelector('[data-asset="plan8-2"]'), ["Group 8"]);
-    tryFirst(document.querySelector('[data-asset="plan8-3"]'), ["Group 8"]);
-
     wireDressSlider();
   }
 
