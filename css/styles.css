@@ -37,11 +37,13 @@ select {
 html {
   scroll-behavior: smooth;
   background: var(--bg);
+  overflow-x: hidden;
 }
 
 body {
   margin: 0;
   min-height: 100vh;
+  overflow-x: hidden;
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -1701,4 +1703,62 @@ body {
   object-fit: contain;
   object-position: center top;
   z-index: 2;
+}
+
+/* «Липнет» при скролле: fixed — у html/body overflow-x:hidden sticky внутри main часто не работает */
+.site-music-toggle {
+  position: fixed;
+  z-index: 200;
+  top: calc(20px + env(safe-area-inset-top, 0px));
+  right: calc(20px + env(safe-area-inset-right, 0px));
+  left: auto;
+  bottom: auto;
+  box-sizing: border-box;
+  width: 44px;
+  height: 44px;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--ink);
+  border-radius: 50%;
+  background: rgba(253, 252, 248, 0.92);
+  color: var(--ink);
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.site-music-toggle:hover {
+  opacity: 0.88;
+}
+
+.site-music-toggle:focus-visible {
+  outline: 2px solid var(--line-pink);
+  outline-offset: 2px;
+}
+
+.site-music-toggle__icons {
+  position: relative;
+  display: block;
+  width: 22px;
+  height: 22px;
+}
+
+.site-music-toggle__icon {
+  display: block;
+  width: 22px;
+  height: 22px;
+}
+
+.site-music-toggle__icon--off {
+  display: none;
+}
+
+.site-music-toggle--muted .site-music-toggle__icon--on {
+  display: none;
+}
+
+.site-music-toggle--muted .site-music-toggle__icon--off {
+  display: block;
 }

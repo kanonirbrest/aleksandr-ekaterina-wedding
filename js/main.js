@@ -535,6 +535,50 @@
     });
   }
 
+  function wireSiteMusic() {
+    var audio = document.getElementById("site-music-audio");
+    var btn = document.getElementById("site-music-toggle");
+    if (!audio || !btn) return;
+
+    audio.volume = 1;
+
+    function tryPlay() {
+      var p = audio.play();
+      if (p && typeof p.catch === "function") {
+        p.catch(function () {});
+      }
+    }
+
+    function updateUi() {
+      var off = audio.paused || audio.muted;
+      var audible = !audio.paused && !audio.muted;
+      btn.setAttribute("aria-pressed", audible ? "true" : "false");
+      var label = audio.paused
+        ? "Включить музыку"
+        : off
+          ? "Включить звук"
+          : "Выключить звук";
+      btn.setAttribute("aria-label", label);
+      btn.title = label;
+      btn.classList.toggle("site-music-toggle--muted", off);
+    }
+
+    btn.addEventListener("click", function (e) {
+      e.stopPropagation();
+      if (audio.paused) {
+        audio.muted = false;
+        tryPlay();
+      } else {
+        audio.muted = !audio.muted;
+      }
+      updateUi();
+    });
+
+    audio.addEventListener("play", updateUi);
+    audio.addEventListener("pause", updateUi);
+    updateUi();
+  }
+
   function wireAssets() {
     tryFirst(document.querySelector('[data-asset="plan8-1"]'), ["8"]);
     tryFirst(document.querySelector('[data-asset="plan8-2"]'), ["8"]);
@@ -551,4 +595,5 @@
   setInterval(tickCountdown, 1000);
   wireAssets();
   wireRsvpForm();
+  wireSiteMusic();
 })();
