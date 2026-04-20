@@ -580,9 +580,9 @@
   }
 
   function wireAssets() {
-    tryFirst(document.querySelector('[data-asset="plan8-1"]'), ["8"]);
-    tryFirst(document.querySelector('[data-asset="plan8-2"]'), ["8"]);
-    tryFirst(document.querySelector('[data-asset="plan8-3"]'), ["8"]);
+    tryFirst(document.querySelector('[data-asset="plan8-1"]'), ["Group 8"]);
+    tryFirst(document.querySelector('[data-asset="plan8-2"]'), ["Group 8"]);
+    tryFirst(document.querySelector('[data-asset="plan8-3"]'), ["Group 8"]);
 
     wireDressSlider();
   }
