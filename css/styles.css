@@ -1409,10 +1409,52 @@ body {
   margin-right: auto;
 }
 
-.contacts-line--phone-name .t-link {
+.contacts-inner .contacts-telegram-link {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+.contacts-telegram-icon {
+  flex-shrink: 0;
+  display: block;
+}
+
+.contacts-telegram-text {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.contacts-phone-row {
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  max-width: 100%;
+}
+
+.contacts-phone-icon {
+  flex-shrink: 0;
+  display: block;
+}
+
+.contacts-inner .contacts-phone-link {
   display: inline;
   width: auto;
   max-width: none;
+  margin-left: 0;
+  margin-right: 0;
+  text-decoration: none;
+}
+
+.contacts-phone-number {
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
 .contacts-text {
